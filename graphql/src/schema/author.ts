@@ -1,4 +1,4 @@
-import {gql} from '../config/deps'
+import { gql } from '../config/deps.ts'
 
 export const AuthorTypes = (gql as any)`
 
@@ -9,7 +9,7 @@ type Author {
   firstName: String!
   lastName: String!
   email: String!
-  post: [Post!]
+  posts: [Post!]
 }
 
 input AuthorInput {
@@ -42,4 +42,4 @@ extend type Mutation {
   createAuthor(input: AuthorInput): Author
   createPost(input: PostInput): Post
 }
-`;
+`

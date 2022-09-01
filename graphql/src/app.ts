@@ -1,30 +1,32 @@
-import { Application, applyGraphQL } from './config/deps.ts';
-import { resolvers } from './resolver/index.ts';
-import { Schema } from './schema/index.ts';
+import { Application, applyGraphQL, Router } from './config/deps.ts'
+import { resolvers } from './resolver/index.ts'
+import { Schema } from './schema/index.ts'
 
-
-@export class App {
+export class App {
   public app: Application
   public port: number
   public logger: any
 
   constructor(port: number) {
+    this.app = new Application()
+    this.port = port
     this.initializeMiddleware()
     this.initializeRoutes()
   }
 
-  initializeRoutes() {
-    const graphQLService = await applyGraphQL({
+  private async initializeRoutes() {
+    const graphQLService = await applyGraphQL<Router>({
+      Router,
       path: '/graphql',
       typeDefs: Schema,
       resolvers: resolvers,
-      context: ctx => {}
+      context: (ctx) => {},
     })
 
     this.app.use(graphQLService.routes, graphQLService.allowedMethods())
   }
 
-  initializeMiddleware() {
+  private initializeMiddleware() {
     this.app.use(async (ctx: any, next: any) => {
       await next()
       const rt = ctx.response.headers.get('X-Response-Time')
@@ -32,9 +34,9 @@ import { Schema } from './schema/index.ts';
     })
   }
 
-  public  async listen() {
+  public async listen() {
     return await this.app.listen({
-      port: this.port
+      port: this.port,
     })
   }
 }

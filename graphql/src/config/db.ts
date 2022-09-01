@@ -1,4 +1,4 @@
-import { MongoClient } from 'https://deno.land/x/mongo@v0.8.0/mod.ts';
+import { MongoClient } from 'https://deno.land/x/mongo@v0.8.0/mod.ts'
 
 export class DbConnection {
   public client = new MongoClient()
@@ -13,11 +13,11 @@ export class DbConnection {
   }
 
   public getDatabase() {
-    this.client.database(this.dbName)
+    return this.client.database(this.dbName)
   }
 }
 
-const dbUrl = 'mongodb+srv://root:<password>@cluster0.uguptgl.mongodb.net/test'
+const dbUrl = 'mongodb+srv://root:root@cluster0.uguptgl.mongodb.net/test'
 const dbName = Deno.env.get('DB_NAME') || 'deno-graphql'
 const dbHostUrl = Deno.env.get('DB_HOST_URL') || dbUrl
 const db = new DbConnection(dbName, dbHostUrl)
