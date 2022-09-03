@@ -36,4 +36,28 @@ export const AuthorResolvers = {
       return postSelect
     },
   },
+  Mutation: {
+    createPost: async (
+      parent: any,
+      { input: { authorId, postTitle, postCategory, postDate } }: any,
+      context: any,
+      info: any
+    ) => {
+      console.log('input', postCategory, postTitle)
+      const insertPost = await post.insertOne({
+        authorId,
+        postTitle,
+        postCategory,
+        postDate,
+      })
+
+      const postSelect = await post.findOne({
+        _id: {
+          $oid: insertPost.$oid,
+        },
+      })
+      postSelect._id = insertPost.$oid
+      return postSelect
+    },
+  },
 }

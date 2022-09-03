@@ -1,8 +1,8 @@
 import { gql } from '../config/deps.ts'
-import { UserTypes } from 'user.ts'
-import { AuthorTypes } from 'author.ts'
+import { UserTypes } from './user.ts'
+import { AuthorTypes } from './author.ts'
 
-export const Schems = gql`
+export const Schema = gql`
   type Query {
     _empty: String
   }
