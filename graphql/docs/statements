@@ -1,0 +1,6 @@
+deno run --allow-net --allow-env --allow-write --allow-read  --unstable server.ts
+
+brew services start mongodb-community
+brew services stop mongodb-community
+
+brew upgrade mongodb-community

@@ -1,4 +1,5 @@
-import { db } from '../config/db.ts'
+import { db } from '../config/db.ts';
+
 const author = db.getDatabase().collection('author')
 const post = db.getDatabase().collection('post')
 
@@ -19,10 +20,12 @@ export const AuthorResolvers = {
         }
       })
 
-      authorSelect._id = _id
-      authorSelect.post = allPosts
+      if (authorSelect) {
+        authorSelect._id = _id
+        authorSelect.post = allPosts
+      }
 
-      return authorSelect
+      return authorSelect || null
     },
 
     getPost: async (parent: any, { _id }: any, context: any, info: any) => {
@@ -32,8 +35,10 @@ export const AuthorResolvers = {
         },
       })
 
-      postSelect._id = _id
-      return postSelect
+      if (postSelect) {
+        postSelect._id = _id
+      }
+      return postSelect || null
     },
   },
   Mutation: {
@@ -56,7 +61,10 @@ export const AuthorResolvers = {
           $oid: insertPost.$oid,
         },
       })
-      postSelect._id = insertPost.$oid
+
+      if (postSelect) {
+        postSelect._id = insertPost.$oid
+      }
       return postSelect
     },
   },
