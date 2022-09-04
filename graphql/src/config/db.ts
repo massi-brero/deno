@@ -40,13 +40,12 @@ export class DbConnection {
   }
 }
 
-const dbUrl =
-  'mongodb+srv://root:root@cluster0.uguptgl.mongodb.net/?retryWrites=true&w=majority'
+const dbUrl = 'mongodb://127.0.0.1:27017/'
 const dbName = Deno.env.get('DB_NAME') || 'deno-graphql'
 const dbHostUrl = Deno.env.get('DB_HOST_URL') || dbUrl
 const cluster = 'ac-qk5erug-shard-00-00.uguptgl.mongodb.net'
 
 const db = new DbConnection(dbName, dbHostUrl, cluster)
-await db.connectToAtlas()
+await db.connect()
 
 export { db }

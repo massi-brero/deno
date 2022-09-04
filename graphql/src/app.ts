@@ -1,6 +1,6 @@
-import { Application, applyGraphQL, Router } from './config/deps.ts'
-import { resolvers } from './resolver/index.ts'
-import { Schema } from './schema/index.ts'
+import { Application, applyGraphQL, Router } from './config/deps.ts';
+import { resolvers } from './resolver/index.ts';
+import { Schema } from './schema/index.ts';
 
 export class App {
   public app: Application
@@ -20,10 +20,13 @@ export class App {
       path: '/graphql',
       typeDefs: Schema,
       resolvers: resolvers,
-      context: (ctx) => {},
+      context: (ctx) => {
+        return 'Welcome to graphql!'
+      },
     })
 
     this.app.use(graphQLService.routes, graphQLService.allowedMethods())
+    console.log('graphql routes initialized...')
   }
 
   private initializeMiddleware() {
@@ -31,6 +34,7 @@ export class App {
       await next()
       const rt = ctx.response.headers.get('X-Response-Time')
       console.log(`${ctx.request.method} ${ctx.request.url} - ${rt}`)
+      console.log('graphql middleware initialized...', ctx.response.headers)
     })
   }
 
