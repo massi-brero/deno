@@ -2,6 +2,9 @@ import { Application, applyGraphQL, Router } from './config/deps.ts';
 import { resolvers } from './resolver/index.ts';
 import { Schema } from './schema/index.ts';
 
+/**
+ * Oaks graphql middleware basically
+ */
 export class App {
   public app: Application
   public port: number
