@@ -1,3 +1,5 @@
+import { oakCors } from 'https://deno.land/x/cors/mod.ts';
+
 import { Application, applyGraphQL, Router } from './config/deps.ts';
 import { resolvers } from './resolver/index.ts';
 import { Schema } from './schema/index.ts';
@@ -33,6 +35,14 @@ export class App {
   }
 
   private initializeMiddleware() {
+    this.app.use(
+      oakCors({
+        origin: '*',
+        methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
+        preflightContinue: false,
+        optionsSuccessStatus: 204,
+      })
+    )
     this.app.use(async (ctx: any, next: any) => {
       await next()
       const rt = ctx.response.headers.get('X-Response-Time')
