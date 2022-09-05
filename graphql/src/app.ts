@@ -1,8 +1,11 @@
 import { oakCors } from 'https://deno.land/x/cors/mod.ts'
-
+import { db } from './config/db.ts'
 import { Application, applyGraphQL, Router } from './config/deps.ts'
-import { resolvers } from './resolver/index.ts'
+import { AuthorResolvers } from './resolver/index.ts'
 import { Schema } from './schema/index.ts'
+
+const author = db.getDatabase().collection('author')
+const post = db.getDatabase().collection('post')
 
 /**
  * Oaks graphql middleware basically
@@ -24,14 +27,12 @@ export class App {
       Router,
       path: '/graphql',
       typeDefs: Schema,
-      resolvers: resolvers,
-      context: (ctx) => {
-        return 'Welcome to graphql!'
-      },
+      resolvers: AuthorResolvers,
+      context: (ctx) => {},
     })
 
-    this.app.use(graphQLService.routes(), graphQLService.allowedMethods())
     console.log('graphql routes initialized...')
+    this.app.use(graphQLService.routes(), graphQLService.allowedMethods())
   }
 
   private initializeMiddleware() {

@@ -54,22 +54,20 @@ export const AuthorResolvers: ResolversProps = {
       _context: any,
       _info: any
     ) => {
-      console.log('huhu########')
-
-      const insertAuthor = await author.insertOne({
+      const insertAuthorId = await author.insertOne({
         firstName,
         lastName,
         email,
       })
 
       const authorSelect = await author.findOne({
-        _id: {
-          $oid: insertAuthor.$oid,
-        },
+        _id: insertAuthorId,
       })
 
+      console.log(authorSelect)
+
       if (authorSelect) {
-        authorSelect._id = insertAuthor.$oid
+        authorSelect._id = insertAuthorId.toString()
       }
 
       return authorSelect
@@ -80,7 +78,7 @@ export const AuthorResolvers: ResolversProps = {
       _context: any,
       _info: any
     ) => {
-      const insertPost = await post.insertOne({
+      const insertPostId = await post.insertOne({
         authorId,
         postTitle,
         postCategory,
@@ -88,13 +86,11 @@ export const AuthorResolvers: ResolversProps = {
       })
 
       const postSelect = await post.findOne({
-        _id: {
-          $oid: insertPost.$oid,
-        },
+        _id: insertPostId,
       })
 
       if (postSelect) {
-        postSelect._id = insertPost.$oid
+        postSelect._id = insertPostId.toString()
       }
       return postSelect
     },

@@ -1,5 +1,5 @@
 import { config } from 'https://deno.land/x/dotenv/mod.ts'
-import { Application, Router } from 'https://deno.land/x/oak@v10.0.0/mod.ts'
+import { Application, Router } from 'https://deno.land/x/oak/mod.ts'
 import {
   applyGraphQL,
   gql,
