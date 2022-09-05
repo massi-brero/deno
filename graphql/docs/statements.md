@@ -36,7 +36,7 @@ mutation insertAuthor($input: AuthorInput) {
   "input": {"firstName":"Massi", "lastName": "Brero", "email": "m@b.de"}
 }
 
-mutation insertAPost($input: PostInput) {
+mutation insertPost($input: PostInput) {
     createPost(input: $input) {
         _id,
         postTitle,
