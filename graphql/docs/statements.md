@@ -24,32 +24,37 @@ mongosh
 Query & Mutations
 
 ```json
-mutation insertAuthor($input: AuthorInput) {
-  createAuthor(input: $input) {
-    _id,
-    lastName,
-    firstName,
-    email
+mutation insertPaket($input: PaketInput) {
+  createPaket(input: $input) {
+    erfassungstag,
+    kontoauszugsnummer,
+    paketnummer,
+    zahlungsweg,
   }
 }
 {
-  "input": {"firstName":"Massi", "lastName": "Brero", "email": "m@b.de"}
+  "input": {
+    "erfassungstag": "2022-09-10",
+    "kontoauszugsnummer": 123,
+    "paketnummer": 1,
+    "zahlungsweg": "Zahlungsweg 1",
+  }
 }
 
-mutation insertPost($input: PostInput) {
-    createPost(input: $input) {
-        _id,
-        postTitle,
-        postCategory,
-        postDate
+mutation insertZahlung($input: ZahlungInput) {
+    createZahlung(input: $input) {
+      paketId,
+      betrag,
+      bic,
+      einzahlungstag,
     }
 }
 {
   "input": {
-    "postDate":"2022-09-05",
-    "authorId": "1111",
-    "postTitle": "Test Post",
-    "postCategory": "GraphQL"
+    "paketIdd" : "1254",
+    "betrag" : 1220.99,
+    "bic": "BRLADE22",
+    "einzahlungstag": "2022-09-10",
     }
 }
 ```

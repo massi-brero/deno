@@ -1,7 +1,7 @@
 import { oakCors } from 'https://deno.land/x/cors/mod.ts'
 import { db } from './config/db.ts'
 import { Application, applyGraphQL, Router } from './config/deps.ts'
-import { AuthorResolvers } from './resolver/index.ts'
+import { ZahlungserfassungResolvers } from './resolver/zahlungserfassungResolver.ts'
 import { Schema } from './schema/index.ts'
 
 const author = db.getDatabase().collection('author')
@@ -27,7 +27,7 @@ export class App {
       Router,
       path: '/graphql',
       typeDefs: Schema,
-      resolvers: AuthorResolvers,
+      resolvers: ZahlungserfassungResolvers,
       context: (ctx) => {},
     })
 
