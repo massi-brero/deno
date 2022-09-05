@@ -1,11 +1,17 @@
-import { db } from '../config/db.ts';
+import { db } from '../config/db.ts'
+import { ResolversProps } from '../config/deps.ts'
 
 const author = db.getDatabase().collection('author')
 const post = db.getDatabase().collection('post')
 
-export const AuthorResolvers = {
+export const AuthorResolvers: ResolversProps = {
   Query: {
-    getAuthor: async (parent: any, { _id }: any, context: any, info: any) => {
+    getAuthor: async (
+      _parent: any,
+      { _id }: any,
+      _context: any,
+      _info: any
+    ) => {
       const authorSelect = await author.findOne({
         _id: {
           $oid: _id,
@@ -28,7 +34,7 @@ export const AuthorResolvers = {
       return authorSelect || null
     },
 
-    getPost: async (parent: any, { _id }: any, context: any, info: any) => {
+    getPost: async (_parent: any, { _id }: any, _context: any, _info: any) => {
       const postSelect = await author.findOne({
         _id: {
           $oid: _id,
@@ -42,13 +48,38 @@ export const AuthorResolvers = {
     },
   },
   Mutation: {
-    createPost: async (
-      parent: any,
-      { input: { authorId, postTitle, postCategory, postDate } }: any,
-      context: any,
-      info: any
+    createAuthor: async (
+      _parent: any,
+      { input: { firstName, lastName, email } }: any,
+      _context: any,
+      _info: any
     ) => {
-      console.log('input', postCategory, postTitle)
+      console.log('huhu########')
+
+      const insertAuthor = await author.insertOne({
+        firstName,
+        lastName,
+        email,
+      })
+
+      const authorSelect = await author.findOne({
+        _id: {
+          $oid: insertAuthor.$oid,
+        },
+      })
+
+      if (authorSelect) {
+        authorSelect._id = insertAuthor.$oid
+      }
+
+      return authorSelect
+    },
+    createPost: async (
+      _parent: any,
+      { input: { authorId, postTitle, postCategory, postDate } }: any,
+      _context: any,
+      _info: any
+    ) => {
       const insertPost = await post.insertOne({
         authorId,
         postTitle,

@@ -1,8 +1,8 @@
-import { oakCors } from 'https://deno.land/x/cors/mod.ts';
+import { oakCors } from 'https://deno.land/x/cors/mod.ts'
 
-import { Application, applyGraphQL, Router } from './config/deps.ts';
-import { resolvers } from './resolver/index.ts';
-import { Schema } from './schema/index.ts';
+import { Application, applyGraphQL, Router } from './config/deps.ts'
+import { resolvers } from './resolver/index.ts'
+import { Schema } from './schema/index.ts'
 
 /**
  * Oaks graphql middleware basically
@@ -30,7 +30,7 @@ export class App {
       },
     })
 
-    this.app.use(graphQLService.routes, graphQLService.allowedMethods())
+    this.app.use(graphQLService.routes(), graphQLService.allowedMethods())
     console.log('graphql routes initialized...')
   }
 
@@ -47,7 +47,6 @@ export class App {
       await next()
       const rt = ctx.response.headers.get('X-Response-Time')
       console.log(`${ctx.request.method} ${ctx.request.url} - ${rt}`)
-      console.log('graphql middleware initialized...', ctx.response.headers)
     })
   }
 

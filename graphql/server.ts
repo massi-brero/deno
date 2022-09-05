@@ -1,9 +1,9 @@
-import 'https://deno.land/x/dotenv/load.ts';
+import 'https://deno.land/x/dotenv/load.ts'
 
-import { App } from './src/app.ts';
-import { DbConnection } from './src/config/db.ts';
+import { App } from './src/app.ts'
+import { DbConnection } from './src/config/db.ts'
 
-const PORT = parseInt(Deno.env.get('PORT') || '8080') || 8080
+const PORT = parseInt(Deno.env.get('PORT') || '8888') || 8888
 const app = new App(PORT)
 
 // const dbUrl = 'mongodb://127.0.0.1:27017/'
