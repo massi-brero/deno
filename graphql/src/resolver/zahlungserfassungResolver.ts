@@ -58,7 +58,22 @@ export const ZahlungserfassungResolvers: ResolversProps = {
       return await zahlung.find().toArray()
     },
     pakete: async (_parent: any, args: any, _context: any, _info: any) => {
-      return await paket.find().toArray()
+      const paketeSelect = await paket.find().toArray()
+
+      const paketResult = paketeSelect.map(async (paket) => {
+        const zahlungSelect = await zahlung
+          .find({ paketId: { $eq: paket._id.toString() } })
+          .toArray()
+
+        console.log(zahlungSelect)
+
+        paket._id = paket._id.toString()
+        paket.zahlungen = zahlungSelect
+
+        return paket
+      })
+
+      return paketResult
     },
   },
   Mutation: {

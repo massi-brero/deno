@@ -36,12 +36,14 @@ input ZahlungInput {
 }
 
 extend type Query {
-  getPaket(_id: ID): Paket
-  getZahlung(_id: ID): Zahlung
+  zahlungen: [Zahlung]
+  pakete: [Paket]
+  paket(_id: String!): Paket
+  zahlung(_id: String!): Zahlung
 }
 
 extend type Mutation {
-  createPaket(input: PaketInput): Paket
-  createZahlung(input: ZahlungInput): Zahlung
+  paket(input: PaketInput!): Paket
+  zahlung(input: ZahlungInput!): Zahlung
 }
 `
