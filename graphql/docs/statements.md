@@ -23,8 +23,8 @@ mongosh
 
 Query & Mutations
 
-```json
-mutation insertPaket($input: PaketInput) {
+````json
+mutation paket($input: PaketInput) {
   createPaket(input: $input) {
     erfassungstag,
     kontoauszugsnummer,
@@ -41,7 +41,7 @@ mutation insertPaket($input: PaketInput) {
   }
 }
 
-mutation insertZahlung($input: ZahlungInput) {
+mutation zahlung($input: ZahlungInput) {
     createZahlung(input: $input) {
       paketId,
       betrag,
@@ -51,10 +51,22 @@ mutation insertZahlung($input: ZahlungInput) {
 }
 {
   "input": {
-    "paketIdd" : "1254",
+    "paketId" : "1254",
     "betrag" : 1220.99,
     "bic": "BRLADE22",
     "einzahlungstag": "2022-09-10",
     }
 }
-```
+
+```json
+{
+  paket(_id: "631661d1a27fbe303bc29594") {
+    kontoauszugsnummer,
+    zahlungen {
+      bic,
+      einzahlungstag
+    }
+  }
+}
+
+````
