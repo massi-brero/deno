@@ -1,7 +1,8 @@
-import { Collection } from 'https://deno.land/x/mongo@v0.31.0/mod.ts'
-import { ObjectId } from 'https://deno.land/x/mongo@v0.31.0/mod.ts'
-import { db } from '../config/db.ts'
-import { ResolversProps } from '../config/deps.ts'
+import { Collection } from 'https://deno.land/x/mongo@v0.31.0/mod.ts';
+import { ObjectId } from 'https://deno.land/x/mongo@v0.31.0/mod.ts';
+
+import { db } from '../config/db.ts';
+import { ResolversProps } from '../config/deps.ts';
 
 const paket = db.getDatabase().collection('paket')
 const zahlung = db.getDatabase().collection('zahlung')
@@ -62,7 +63,7 @@ export const ZahlungserfassungResolvers: ResolversProps = {
 
       const paketResult = paketeSelect.map(async (paket) => {
         const zahlungSelect = await zahlung
-          .find({ paketId: { $eq: paket._id.toString() } })
+          .find({ paketId: { $eq: paket.paketnummer } })
           .toArray()
 
         console.log(zahlungSelect)

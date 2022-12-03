@@ -1,4 +1,4 @@
-import { gql } from '../config/deps.ts'
+import { gql } from '../config/deps.ts';
 
 export const ZahlungserfassungTypes = (gql as any)`
 
@@ -22,14 +22,14 @@ input PaketInput {
 
 type Zahlung {
     _id : ID
-    paketId : String!
+    paketId : Int!
     betrag : Float!
     bic: String!
     einzahlungstag: Date!
 }
 
 input ZahlungInput {
-    paketId : String!
+    paketId : Int!
     betrag : Float!
     bic: String!
     einzahlungstag: Date!
@@ -38,7 +38,7 @@ input ZahlungInput {
 extend type Query {
   zahlungen: [Zahlung]
   pakete: [Paket]
-  paket(_id: String!): Paket
+  paket(_id: Int!): Paket
   zahlung(_id: String!): Zahlung
 }
 

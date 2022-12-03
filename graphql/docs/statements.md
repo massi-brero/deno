@@ -6,6 +6,8 @@ brew services stop mongodb-community
 brew upgrade mongodb-community
 mongod --dbpath=/Users/massi.brero/mongodb/data/db/
 
+deno compile --output="./bin/gql-server" --allow-env --allow-net --allow-read server.ts
+
 ```javascript
 db.createUser({
   user: 'root',
@@ -24,8 +26,20 @@ mongosh
 Query & Mutations
 
 ````json
-mutation paket($input: PaketInput) {
-  createPaket(input: $input) {
+
+query getPakete {
+  pakete {
+    _id,
+    zahlungen {
+      betrag,
+      bic,
+      einzahlungstag
+    }
+  }
+}
+
+mutation createaket($input: PaketInput!) {
+  paket(input: $input) {
     erfassungstag,
     kontoauszugsnummer,
     paketnummer,
@@ -41,8 +55,8 @@ mutation paket($input: PaketInput) {
   }
 }
 
-mutation zahlung($input: ZahlungInput) {
-    createZahlung(input: $input) {
+mutation zahlung($input: ZahlungInput!) {
+    zahlung(input: $input) {
       paketId,
       betrag,
       bic,
@@ -51,7 +65,7 @@ mutation zahlung($input: ZahlungInput) {
 }
 {
   "input": {
-    "paketId" : "1254",
+    "paketId" : 1,
     "betrag" : 1220.99,
     "bic": "BRLADE22",
     "einzahlungstag": "2022-09-10",
