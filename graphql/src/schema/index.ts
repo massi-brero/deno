@@ -1,6 +1,5 @@
 import { gql } from '../config/deps.ts'
-import { UserTypes } from './user.ts'
-import { AuthorTypes } from './author.ts'
+import { ZahlungserfassungTypes } from './zahlungserfassung.ts'
 
 export const Schema = gql`
   type Query {
@@ -9,6 +8,5 @@ export const Schema = gql`
   type Mutation {
     _empty: String
   }
-  ${UserTypes}
-  ${AuthorTypes}
+  ${ZahlungserfassungTypes}
 `
