@@ -36,7 +36,7 @@ export const ZahlungserfassungResolvers: ResolversProps = {
       const paketSelect = await paket.findOne({ _id: new ObjectId(_id) })
 
       const zahlungSelect = await zahlung
-        .find({ paketId: { $eq: _id } })
+        .find({ paketId: { $eq: paketSelect?.paketnummer } })
         .toArray()
 
       if (paketSelect) {
